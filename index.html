@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AINA (AI National Assistant) | قومی معاون برائے شہری امور – NYLP AI Hackathon 2026</title>
+  <meta name="description" content="AI-powered national civic assistant for Pakistani citizens to diagnose public issues, access official resolution roadmaps, and generate formal legal complaints in Urdu and English." />
+  
+  <!-- Modern Typography: Plus Jakarta Sans for English & Noto Nastaliq Urdu / Amiri for authentic Urdu -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <!-- Disclaimer Banner as strictly required by Project Vision -->
+  <aside class="disclaimer-banner" role="complementary" aria-label="Official Disclaimer">
+    <div class="container disclaimer-content">
+      <span class="disclaimer-badge">📌 Important Disclaimer</span>
+      <p id="disclaimer-text">
+        <strong>AINA</strong> is an independent civic AI assistant developed for <strong>NYLP AI Hackathon 2026</strong>, not a government entity. It provides informative legal & procedural guidance; the citizen remains responsible for reviewing and submitting their formal application or complaint to the competent authority.
+      </p>
+      <button class="disclaimer-dismiss" id="btn-dismiss-disclaimer" title="Dismiss" aria-label="Dismiss banner">✕</button>
+    </div>
+  </aside>
+
+  <!-- Top App Navigation Bar -->
+  <header class="app-header">
+    <div class="container header-container">
+      <div class="brand-group">
+        <div class="brand-logo-badge">
+          <span class="crescent-icon">🌙</span>
+          <span class="star-icon">⭐</span>
+        </div>
+        <div class="brand-titles">
+          <div class="brand-title-row">
+            <span class="brand-acronym">AINA</span>
+          </div>
+          <p class="brand-subtitle">AI National Assistant &bull; قومی معاون برائے شہری امور</p>
+        </div>
+      </div>
+
+      <!-- Action Controls -->
+      <div class="header-actions">
+        <!-- Language Switcher -->
+        <div class="lang-switch-group" role="group" aria-label="Language selection">
+          <button class="lang-btn active" id="btn-lang-en" data-lang="en">English</button>
+          <button class="lang-btn" id="btn-lang-ur" data-lang="ur">اردو (Urdu)</button>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button class="icon-btn" id="btn-theme-toggle" title="Toggle Light/Dark Theme" aria-label="Toggle theme">
+          <span class="theme-icon">🌙</span>
+        </button>
+
+        <!-- API Settings Modal Trigger -->
+        <button class="icon-btn with-label" id="btn-open-settings" title="AI Settings & API Key">
+          <span class="gear-icon">⚙️</span>
+          <span class="btn-label" id="label-settings">Settings</span>
+        </button>
+
+        <!-- About Modal Trigger -->
+        <button class="icon-btn with-label accent" id="btn-open-about" title="Project Vision">
+          <span class="info-icon">ℹ️</span>
+          <span class="btn-label" id="label-about">About</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Navigation Tabs -->
+  <nav class="main-tabs-nav" aria-label="Main Navigation">
+    <div class="container tabs-container">
+      <button class="tab-item active" id="tab-btn-assistant" data-target="tab-assistant">
+        <span class="tab-icon">🤖</span>
+        <span class="tab-label" id="nav-assistant">AI Civic Consultation</span>
+      </button>
+      <button class="tab-item" id="tab-btn-drafter" data-target="tab-drafter">
+        <span class="tab-icon">📝</span>
+        <span class="tab-label" id="nav-drafter">Smart Complaint Drafter</span>
+        <span class="tab-badge" id="badge-drafter">Ready</span>
+      </button>
+      <button class="tab-item" id="tab-btn-directory" data-target="tab-directory">
+        <span class="tab-icon">📞</span>
+        <span class="tab-label" id="nav-directory">Official Civic Directory</span>
+      </button>
+      <button class="tab-item" id="tab-btn-rights" data-target="tab-rights">
+        <span class="tab-icon">⚖️</span>
+        <span class="tab-label" id="nav-rights">Citizen Rights & Laws</span>
+      </button>
+      <button class="tab-item" id="tab-btn-tracking" data-target="tab-tracking">
+        <span class="tab-icon">📌</span>
+        <span class="tab-label" id="nav-tracking">Case Tracker & Timeline</span>
+        <span class="tab-badge" id="badge-tracking">Live DB</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content Container -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- ========================================== -->
+      <!-- TAB 1: AI CIVIC CONSULTATION & DIAGNOSIS   -->
+      <!-- ========================================== -->
+      <section class="tab-panel active" id="tab-assistant">
+        <!-- Hero Intro Section -->
+        <div class="hero-card">
+          <div class="hero-text">
+            <span class="hero-pill">✨ Empowering 240M+ Pakistani Citizens</span>
+            <h1 class="hero-title" id="hero-title-text">
+              Describe Any Civic Problem in <span class="text-gradient">Urdu or English</span>. Get Instant Legal Guidance.
+            </h1>
+            <p class="hero-desc" id="hero-desc-text">
+              From inflated electricity detection bills and blocked NADRA CNICs to police station FIR refusals, online cyber fraud, and municipal sewage neglect—AINA guides you step-by-step through official Pakistani government procedures and generates formal legal complaints.
+            </p>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-box">
+              <span class="stat-number">12+</span>
+              <span class="stat-name" id="stat-departments">Departments Covered</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-number">100%</span>
+              <span class="stat-name" id="stat-bilingual">Bilingual (اردو / EN)</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-number">Free</span>
+              <span class="stat-name" id="stat-public">Public Welfare Tech</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Issue Input & Diagnosis Console -->
+        <div class="diagnosis-console-card">
+          <div class="console-header">
+            <div class="console-title-group">
+              <span class="pulse-indicator"></span>
+              <h2 class="console-heading" id="console-heading-text">Citizen Problem Input & Diagnostic Console</h2>
+            </div>
+            <div class="voice-status-indicator" id="voice-status" style="display:none;">
+              <span class="mic-wave"></span>
+              <span id="voice-status-text">Listening... Speak now in Urdu or English</span>
+            </div>
+          </div>
+
+          <!-- Problem Text Area with Voice Support -->
+          <div class="input-wrapper">
+            <textarea
+              id="user-issue-input"
+              class="issue-textarea"
+              placeholder="Describe your issue in detail. Example in English: 'My electricity bill this month has jumped to Rs. 75,000 with a bogus detection bill claiming meter tampering...' Or in Urdu: 'میرے گھر کا بجلی کا بل اچانک 75 ہزار آ گیا ہے، متعلقہ ایس ڈی او شنوائی نہیں کر رہا...' Or in Roman Urdu: 'Mera bijli ka bill bohat ziada aya hai...'"
+              rows="4"
+            ></textarea>
+
+            <div class="input-actions-bar">
+              <!-- Voice Input Button -->
+              <button class="voice-btn" id="btn-toggle-mic" title="Speak your issue in Urdu or English" aria-label="Microphone voice input">
+                <span class="mic-icon">🎙️</span>
+                <span class="voice-label" id="label-mic">Tap to Speak (آواز سے بتائیں)</span>
+              </button>
+
+              <div class="submit-actions">
+                <button class="btn-clear" id="btn-clear-input" title="Clear text">Clear</button>
+                <button class="btn-primary" id="btn-analyze-issue">
+                  <span class="btn-icon">⚡</span>
+                  <span id="label-analyze">Diagnose & Guide Me</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Scenario Chips for Instant Demonstration -->
+          <div class="prompt-chips-section">
+            <div class="chips-label-row">
+              <span class="chips-title" id="chips-title-text">⚡ Common Pakistani Civic Issues (Click to test):</span>
+            </div>
+            <div class="chips-scroll-container" id="sample-chips-container">
+              <!-- Dynamically populated chips -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Results Container -->
+        <div class="results-area" id="results-area" style="display: none;">
+          <!-- Loading State Skeleton -->
+          <div class="loading-state" id="analysis-loading" style="display: none;">
+            <div class="spinner"></div>
+            <p id="loading-text">AINA Civic Intelligence Engine is analyzing relevant Pakistani laws, jurisdictional authorities, and resolution roadmap...</p>
+          </div>
+
+          <!-- Analysis Card -->
+          <div class="diagnosis-report-card" id="diagnosis-report">
+            <!-- Header with Category & Severity -->
+            <div class="report-header">
+              <div class="category-badge-box" id="report-category-badge">
+                <span class="cat-icon" id="report-cat-icon">⚡</span>
+                <div>
+                  <span class="cat-title" id="report-cat-title">Utilities & Energy Grievance</span>
+                  <span class="engine-source-tag" id="report-source-tag">AINA Pakistani Civic Intelligence Engine</span>
+                </div>
+              </div>
+              <div class="meta-badges">
+                <span class="severity-badge" id="report-severity">Severity: High</span>
+                <span class="time-badge" id="report-timeframe">Statutory Time: 15 Days</span>
+              </div>
+            </div>
+
+            <!-- Problem Summary -->
+            <div class="report-summary-box">
+              <h3 class="summary-label" id="label-summary">Issue Identification & Classification</h3>
+              <p class="summary-content" id="report-summary-content"></p>
+            </div>
+
+            <!-- Key Authority & Jurisdiction Grid -->
+            <div class="authority-grid">
+              <div class="authority-card">
+                <span class="card-mini-label" id="label-competent-authority">Primary Competent Authority</span>
+                <h4 class="authority-name" id="report-authority-name">Relevant Public Department</h4>
+                <p class="authority-dept" id="report-department-name">Sub-Division / Directorate</p>
+              </div>
+              <div class="authority-card">
+                <span class="card-mini-label" id="label-governing-law">Governing Pakistani Law / Code</span>
+                <h4 class="authority-name text-accent" id="report-legal-act">NEPRA Consumer Service Manual (CSM)</h4>
+                <p class="authority-dept" id="report-legal-note">Statutory Right & Mandatory Procedure</p>
+              </div>
+              <div class="authority-card">
+                <span class="card-mini-label" id="label-escalation-forum">Appellate / Escalation Forum</span>
+                <h4 class="authority-name" id="report-escalation-officer">Wafaqi Mohtasib / High Court</h4>
+                <p class="authority-dept" id="label-escalation-note">If unresolved by first-line officer</p>
+              </div>
+            </div>
+
+            <!-- Interactive Clarification Refinement Section -->
+            <div class="clarification-section" id="clarification-container" style="display: none;">
+              <div class="clarification-header">
+                <span class="clarification-icon">💡</span>
+                <div>
+                  <h4 class="clarification-title" id="label-clarify-title">Help AINA Narrow Down Your Case</h4>
+                  <p class="clarification-desc" id="label-clarify-desc">Select applicable details to customize your resolution pathway and formal complaint letter:</p>
+                </div>
+              </div>
+              <div class="questions-list" id="clarification-questions-list">
+                <!-- Dynamically rendered options -->
+              </div>
+            </div>
+
+            <!-- 4-Phase Step-by-Step Resolution Roadmap -->
+            <div class="roadmap-section">
+              <div class="roadmap-header">
+                <h3 class="roadmap-heading" id="label-roadmap-heading">Actionable Step-by-Step Resolution Roadmap</h3>
+                <button class="btn-narrate" id="btn-read-roadmap" title="Read roadmap aloud">
+                  <span>🔊</span> <span id="label-read-aloud">Read Aloud</span>
+                </button>
+              </div>
+              <div class="roadmap-timeline" id="roadmap-timeline-container">
+                <!-- Dynamically populated phases -->
+              </div>
+            </div>
+
+            <!-- Call to Action: Open Complaint Drafter -->
+            <div class="drafter-cta-banner">
+              <div class="cta-text">
+                <h4 id="label-cta-heading">Ready to Submit an Official Application?</h4>
+                <p id="label-cta-desc">AINA has already structured and drafted your formal complaint in both official English legal format and standard Urdu (درخواست برائے سرکاری ادارہ).</p>
+              </div>
+              <button class="btn-cta" id="btn-go-to-drafter">
+                <span>📝</span>
+                <span id="label-cta-btn">Open & Review Formal Draft</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 2: SMART COMPLAINT & APPLICATION DRAFTER -->
+      <!-- ========================================== -->
+      <section class="tab-panel" id="tab-drafter">
+        <div class="drafter-header-panel">
+          <div>
+            <h2 class="section-title" id="title-drafter-section">AINA Official Complaint & Application Drafter</h2>
+            <p class="section-subtitle" id="desc-drafter-section">
+              Generate, customize, and export formal petitions and complaints formatted for Pakistani government offices, ombudsmen, and courts.
+            </p>
+          </div>
+          <!-- Template Selector Dropdown & Lang Toggle -->
+          <div class="drafter-controls">
+            <select id="select-preset-template" class="form-select">
+              <option value="current">Current Issue Draft (Auto-Generated)</option>
+              <option value="electricity-overbilling">WAPDA / DISCO Overbilling & Detection Bill</option>
+              <option value="police-refusing-fir">Police Station (Thana) FIR Registration (CrPC 154)</option>
+              <option value="nadra-blocked-cnic">NADRA Blocked CNIC Unblocking Petition</option>
+              <option value="fia-cybercrime-scam">FIA Cybercrime Unauthorized Bank / Raast Transfer</option>
+              <option value="consumer-defective-item">Consumer Court 15-Day Formal Legal Notice</option>
+              <option value="wasa-sewage-overflow">WASA / Municipal Sewerage Emergency Redressal</option>
+            </select>
+
+            <div class="doc-lang-toggle" role="group">
+              <button class="doc-lang-btn active" id="btn-doc-lang-en">English Formal Format</button>
+              <button class="doc-lang-btn" id="btn-doc-lang-ur">اردو سرکاری درخواست</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Split View: Interactive Editor + Live Official Stationery Preview -->
+        <div class="drafter-split-view">
+          <!-- Editor Form Column -->
+          <div class="editor-pane">
+            <div class="pane-card">
+              <h3 class="pane-title" id="label-doc-editor">Document Variables & Details</h3>
+              <p class="pane-helper" id="label-editor-helper">Edit any field below to instantly update the official preview on the right.</p>
+
+              <form id="complaint-editor-form" class="editor-form" onsubmit="return false;">
+                <div class="form-group">
+                  <label for="edit-recipient-title" id="lbl-recipient-title">Recipient Designation / Officer</label>
+                  <input type="text" id="edit-recipient-title" class="form-input" value="The Sub-Divisional Officer (SDO) / Executive Engineer (XEN)" />
+                </div>
+
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label for="edit-recipient-dept" id="lbl-recipient-dept">Department / Authority</label>
+                    <input type="text" id="edit-recipient-dept" class="form-input" value="Relevant Power Distribution Company (DISCO)" />
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-recipient-address" id="lbl-recipient-address">Office Address / Sub-Division</label>
+                    <input type="text" id="edit-recipient-address" class="form-input" value="Sub-Division Office, Pakistan" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="edit-subject" id="lbl-subject">Subject Line</label>
+                  <textarea id="edit-subject" class="form-input" rows="2">APPLICATION FOR IMMEDIATE RECTIFICATION OF ERRONEOUS BILLING & CANCELLATION OF UNJUSTIFIED DETECTION CHARGES</textarea>
+                </div>
+
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label for="edit-applicant-name" id="lbl-applicant-name">Applicant Legal Name</label>
+                    <input type="text" id="edit-applicant-name" class="form-input" placeholder="e.g. Muhammad Ali Khan" value="Muhammad Ali Khan" />
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-applicant-cnic" id="lbl-applicant-cnic">13-Digit CNIC Number</label>
+                    <input type="text" id="edit-applicant-cnic" class="form-input" placeholder="35201-XXXXXXX-X" value="35201-1234567-1" />
+                  </div>
+                </div>
+
+                <div class="form-row-2">
+                  <div class="form-group">
+                    <label for="edit-applicant-phone" id="lbl-applicant-phone">Mobile Contact Number</label>
+                    <input type="text" id="edit-applicant-phone" class="form-input" placeholder="0300-1234567" value="0300-1234567" />
+                  </div>
+                  <div class="form-group">
+                    <label for="edit-reference-id" id="lbl-reference-id">Consumer Ref / Meter / Incident No.</label>
+                    <input type="text" id="edit-reference-id" class="form-input" placeholder="e.g. 14-Digit Reference No." value="14-24512-9876543 U" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="edit-applicant-address" id="lbl-applicant-address">Complete Address</label>
+                  <input type="text" id="edit-applicant-address" class="form-input" placeholder="House #, Street, Block, City" value="House No. 12, Street 4, Sector G-8/1, Islamabad" />
+                </div>
+
+                <div class="form-group">
+                  <label for="edit-body-text" id="lbl-body-text">Factual Statement & Narrative (Numbered Paragraphs)</label>
+                  <textarea id="edit-body-text" class="form-input font-mono" rows="8"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="edit-prayer-text" id="lbl-prayer-text">Prayer / Relief Clause (استدعا و مطالبہ)</label>
+                  <textarea id="edit-prayer-text" class="form-input" rows="4"></textarea>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Document Live Stationery Preview Column -->
+          <div class="preview-pane">
+            <!-- Toolbar for Document -->
+            <div class="preview-actions-bar">
+              <span class="preview-label" id="label-live-preview">Official Legal Document Preview</span>
+              <div class="action-btn-cluster">
+                <button class="btn-preview-action emerald" id="btn-save-case-db" title="Save this petition to the database and track its official progress">
+                  <span>💾</span> <span id="label-btn-save-case">Save & Track Case</span>
+                </button>
+                <button class="btn-preview-action" id="btn-copy-doc" title="Copy document to clipboard">
+                  <span>📋</span> <span id="label-btn-copy">Copy Text</span>
+                </button>
+                <button class="btn-preview-action primary" id="btn-print-doc" title="Print or Save as PDF">
+                  <span>🖨️</span> <span id="label-btn-print">Print / Save as PDF</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Actual Document Container (Styled like official Pakistani Legal Stationery) -->
+            <div class="stationery-wrapper">
+              <div class="official-paper" id="printable-document">
+                <!-- Official Header Bar -->
+                <div class="doc-top-bar">
+                  <div class="doc-emblem">
+                    <span class="emblem-star">★</span>
+                    <span class="emblem-crescent">☪</span>
+                  </div>
+                  <div class="doc-header-text">
+                    <div class="doc-gov-heading">GOVERNMENT OF PAKISTAN &bull; FORMAL CITIZEN GRIEVANCE PETITION</div>
+                    <div class="doc-sub-heading">Substantive Grievance Redressal under Relevant Statutory Framework</div>
+                  </div>
+                  <div class="doc-date-block">
+                    <span class="doc-label-mini">Date:</span>
+                    <span id="doc-date-val">19 October 2026</span>
+                  </div>
+                </div>
+
+                <div class="doc-watermark" aria-hidden="true">AINA OFFICIAL DRAFT</div>
+
+                <!-- Recipient Block -->
+                <div class="doc-recipient-block">
+                  <div class="doc-to-label">To,</div>
+                  <div class="doc-recipient-title" id="preview-recipient-title">The Sub-Divisional Officer (SDO) / Executive Engineer (XEN)</div>
+                  <div class="doc-recipient-dept" id="preview-recipient-dept">Relevant Power Distribution Company (DISCO)</div>
+                  <div class="doc-recipient-address" id="preview-recipient-address">Sub-Division Office, Pakistan</div>
+                </div>
+
+                <!-- Subject Block -->
+                <div class="doc-subject-block">
+                  <span class="subject-tag">SUBJECT:</span>
+                  <span class="subject-text" id="preview-subject">APPLICATION FOR IMMEDIATE RECTIFICATION OF ERRONEOUS BILLING & CANCELLATION OF UNJUSTIFIED DETECTION CHARGES</span>
+                </div>
+
+                <!-- Reference line if applicable -->
+                <div class="doc-reference-line">
+                  <strong>Reference / Consumer Account ID:</strong> <span id="preview-reference-id">14-24512-9876543 U</span>
+                </div>
+
+                <!-- Salutation -->
+                <div class="doc-salutation" id="preview-salutation">Respected Sir / Madam,</div>
+
+                <!-- Body Narrative -->
+                <div class="doc-body-paragraphs" id="preview-body-paragraphs">
+                  <!-- Dynamically rendered -->
+                </div>
+
+                <!-- Prayer Block -->
+                <div class="doc-prayer-block">
+                  <div class="prayer-heading">PRAYER / RELIEF SOUGHT:</div>
+                  <div class="prayer-text" id="preview-prayer"></div>
+                </div>
+
+                <!-- Signature & Applicant Verification Block -->
+                <div class="doc-signature-grid">
+                  <div class="doc-verification-notice">
+                    <div class="notice-title">VERIFICATION & AFFIRMATION:</div>
+                    <p class="notice-text">
+                      I solemnly affirm on oath that the contents stated above are true and correct to the best of my personal knowledge and belief, and nothing has been concealed therein.
+                    </p>
+                    <div class="diary-placeholder">
+                      <div class="diary-box">
+                        <span>Office Receiving Diary No: _______________</span>
+                        <span>Dated: _______________ &bull; Official Stamp</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="doc-sign-block">
+                    <div class="sign-line"></div>
+                    <div class="sign-title">APPLICANT / PETITIONER</div>
+                    <div class="sign-name" id="preview-sign-name">Muhammad Ali Khan</div>
+                    <div class="sign-cnic"><strong>CNIC:</strong> <span id="preview-sign-cnic">35201-1234567-1</span></div>
+                    <div class="sign-contact"><strong>Phone:</strong> <span id="preview-sign-phone">0300-1234567</span></div>
+                    <div class="sign-address" id="preview-sign-address">House No. 12, Street 4, Sector G-8/1, Islamabad</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 3: NATIONAL CIVIC DIRECTORY            -->
+      <!-- ========================================== -->
+      <section class="tab-panel" id="tab-directory">
+        <div class="directory-hero">
+          <h2 class="section-title" id="title-directory-section">Official Pakistani Civic Directory & Helplines</h2>
+          <p class="section-subtitle" id="desc-directory-section">
+            Quick, verified directory of emergency distress lines, utility helplines, ombudsman secretariats, and official government complaint portals.
+          </p>
+        </div>
+
+        <!-- Filter bar -->
+        <div class="directory-filters">
+          <div class="search-input-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="input-directory-search" class="search-input" placeholder="Search by name, number, service, or department (e.g. Police, SNGPL, NADRA)..." />
+          </div>
+          <div class="filter-pills" id="directory-category-filters">
+            <button class="filter-pill active" data-filter="all">All Services</button>
+            <button class="filter-pill" data-filter="police">Police & Emergency</button>
+            <button class="filter-pill" data-filter="utilities">Utilities & Energy</button>
+            <button class="filter-pill" data-filter="cybercrime">Cyber Crime & FIA</button>
+            <button class="filter-pill" data-filter="ombudsman">Ombudsman & Portals</button>
+            <button class="filter-pill" data-filter="women">Women & Human Rights</button>
+          </div>
+        </div>
+
+        <!-- Emergency Helplines Speed-Dial Grid -->
+        <div class="helplines-grid" id="helplines-grid-container">
+          <!-- Dynamically populated from civicData.js -->
+        </div>
+
+        <!-- Official Online Portals Section -->
+        <div class="portals-section">
+          <h3 class="portals-heading" id="heading-official-portals">Official Federal & Provincial Redressal Portals</h3>
+          <div class="portals-grid" id="portals-grid-container">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 4: CITIZEN RIGHTS & LAWS KNOWLEDGEBASE -->
+      <!-- ========================================== -->
+      <section class="tab-panel" id="tab-rights">
+        <div class="rights-hero">
+          <h2 class="section-title" id="title-rights-section">Know Your Citizen Rights Under Pakistani Law</h2>
+          <p class="section-subtitle" id="desc-rights-section">
+            Empower yourself with fundamental constitutional protections, statutory deadlines for government officers, and legal recourse against corruption and neglect.
+          </p>
+        </div>
+
+        <!-- Acts & Ordinances Cards -->
+        <div class="laws-grid" id="laws-grid-container">
+          <!-- Dynamically populated from civicData.js -->
+        </div>
+
+        <!-- Myths vs Facts Accordion -->
+        <div class="myths-section">
+          <h3 class="myths-heading" id="heading-myths">Common Civic Myths vs. Pakistani Legal Reality</h3>
+          
+          <div class="myth-card">
+            <div class="myth-header">
+              <span class="myth-tag red">❌ MYTH</span>
+              <h4>"Police have the legal discretion to refuse an FIR and only write a Roznamcha report."</h4>
+            </div>
+            <div class="fact-body">
+              <span class="myth-tag green">✅ LEGAL REALITY</span>
+              <p>Under <strong>Section 154 of the Code of Criminal Procedure (Cr.P.C)</strong>, the Station House Officer (SHO) is statutorily commanded to register an FIR whenever information disclosing a cognizable offense (theft, robbery, snatching, assault) is provided. Refusal constitutes dereliction of official duty, and a citizen can immediately petition the Sessions Judge as Ex-Officio Justice of Peace under Section 22-A & 22-B Cr.P.C.</p>
+            </div>
+          </div>
+
+          <div class="myth-card">
+            <div class="myth-header">
+              <span class="myth-tag red">❌ MYTH</span>
+              <h4>"Electricity DISCOs can slap detection bills without physical meter verification."</h4>
+            </div>
+            <div class="fact-body">
+              <span class="myth-tag green">✅ LEGAL REALITY</span>
+              <p>Under <strong>NEPRA Consumer Service Manual Chapter 6</strong>, no consumer can be billed detection units without a joint physical inspection in the consumer's presence, an independent laboratory report verifying meter tampering, and issuance of a prior 7-day show cause notice. Unilateral detection bills are consistently quashed by the Federal Ombudsman (Wafaqi Mohtasib).</p>
+            </div>
+          </div>
+
+          <div class="myth-card">
+            <div class="myth-header">
+              <span class="myth-tag red">❌ MYTH</span>
+              <h4>"Filing a complaint before the Federal Ombudsman requires hiring a lawyer and paying fees."</h4>
+            </div>
+            <div class="fact-body">
+              <span class="myth-tag green">✅ LEGAL REALITY</span>
+              <p>Complaints before the <strong>Wafaqi Mohtasib (Federal Ombudsman)</strong> are <strong>100% free of charge</strong>. No court fees, stamp papers, or legal representation are required. Any citizen can file online (mohtasib.gov.pk) or by plain paper against any federal department, and decisions are rendered within 60 days.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 5: CASE TRACKING & STATUS MONITOR      -->
+      <!-- ========================================== -->
+      <section class="tab-panel" id="tab-tracking">
+        <div class="tracking-hero">
+          <div class="hero-text">
+            <span class="hero-pill">📌 Official Case Persistence & Timeline</span>
+            <h2 class="section-title" id="title-tracking-section">Pakistani Civic Case Tracker & Diary Monitor</h2>
+            <p class="section-subtitle" id="desc-tracking-section">
+              Monitor the real-time status of your formal petitions, log receiving diary numbers, view procedural timelines, and record official department milestones.
+            </p>
+          </div>
+          <div class="tracking-stats-row" id="tracking-analytics-banner">
+            <div class="track-stat-pill">
+              <span class="track-stat-num" id="stat-total-cases">1</span>
+              <span class="track-stat-lbl">Tracked Cases</span>
+            </div>
+            <div class="track-stat-pill">
+              <span class="track-stat-num text-emerald" id="stat-active-cases">1</span>
+              <span class="track-stat-lbl">Active Inquiries</span>
+            </div>
+            <div class="track-stat-pill">
+              <span class="track-stat-num text-gold" id="stat-avg-days">14 Days</span>
+              <span class="track-stat-lbl">Avg Resolution</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case Search Box -->
+        <div class="tracking-search-card">
+          <div class="search-input-group">
+            <span class="search-icon">🔍</span>
+            <input
+              type="text"
+              id="input-tracking-id"
+              class="search-input"
+              placeholder="Enter Tracking ID (e.g. AINA-PK-2026-X8F2) or applicant phone number..."
+            />
+            <button class="btn-primary" id="btn-search-case">
+              <span>Track Status</span>
+            </button>
+          </div>
+          <div class="filter-pills" id="tracking-status-filters">
+            <button class="filter-pill active" data-status="all">All Cases</button>
+            <button class="filter-pill" data-status="draft">Drafts</button>
+            <button class="filter-pill" data-status="diary_assigned">Diary Assigned</button>
+            <button class="filter-pill" data-status="filed">Filed</button>
+            <button class="filter-pill" data-status="resolved">Resolved</button>
+          </div>
+        </div>
+
+        <!-- Active Case Details Container -->
+        <div class="case-detail-container" id="case-detail-container" style="display: none;">
+          <!-- Active Case Header Card -->
+          <div class="case-overview-card">
+            <div class="case-header-row">
+              <div class="case-tracking-badge">
+                <span class="code-label">Tracking Code:</span>
+                <span class="code-value" id="case-view-tracking-id">AINA-PK-2026-X8F2</span>
+                <button class="btn-icon-mini" id="btn-copy-tracking-id" title="Copy tracking code">📋</button>
+              </div>
+              <div class="case-badge-cluster">
+                <span class="severity-badge" id="case-view-severity">Severity: High</span>
+                <span class="status-pill-badge" id="case-view-status">Diary Assigned</span>
+              </div>
+            </div>
+
+            <h3 class="case-title" id="case-view-title">Civic Grievance Title</h3>
+            <p class="case-desc" id="case-view-desc"></p>
+
+            <!-- Metadata Grid -->
+            <div class="case-meta-grid">
+              <div class="case-meta-item">
+                <span class="meta-label">Competent Authority:</span>
+                <span class="meta-val" id="case-view-authority">--</span>
+              </div>
+              <div class="case-meta-item">
+                <span class="meta-label">Receiving Diary No:</span>
+                <span class="meta-val font-mono highlight" id="case-view-diary">Pending Receiving</span>
+              </div>
+              <div class="case-meta-item">
+                <span class="meta-label">Petitioner:</span>
+                <span class="meta-val" id="case-view-applicant">--</span>
+              </div>
+              <div class="case-meta-item">
+                <span class="meta-label">Governing Law:</span>
+                <span class="meta-val" id="case-view-law">--</span>
+              </div>
+            </div>
+
+            <!-- Case Actions Bar -->
+            <div class="case-actions-bar">
+              <button class="btn-primary" id="btn-open-update-modal">
+                <span>📝</span> Update Diary / Status
+              </button>
+              <button class="btn-secondary" id="btn-export-case-text">
+                <span>📄</span> Export Petition Text
+              </button>
+              <button class="btn-secondary" id="btn-load-in-drafter">
+                <span>✏️</span> Open in Drafter
+              </button>
+            </div>
+          </div>
+
+          <!-- Visual Progress Stepper -->
+          <div class="case-stepper-card">
+            <h4 class="card-heading">Procedural Milestone Progress</h4>
+            <div class="stepper-track" id="case-stepper-track">
+              <!-- Dynamically rendered steps -->
+            </div>
+          </div>
+
+          <!-- Timeline Activity Log -->
+          <div class="case-timeline-card">
+            <h4 class="card-heading">Departmental Timeline & Receiving History</h4>
+            <div class="timeline-feed" id="case-timeline-feed">
+              <!-- Dynamically populated from backend -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Tracked Petitions List (when no specific case is tracked) -->
+        <div class="recent-cases-section" id="recent-cases-section">
+          <h3 class="recent-cases-heading">Recent Public Grievance Petitions in Database</h3>
+          <div class="cases-grid" id="cases-grid-container">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ========================================== -->
+  <!-- MODAL: SETTINGS & GEMINI API KEY           -->
+  <!-- ========================================== -->
+  <div class="modal-backdrop" id="modal-settings" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-icon">⚙️</span>
+          <h3 class="modal-title" id="settings-modal-title">AINA Engine Configuration</h3>
+        </div>
+        <button class="modal-close" id="btn-close-settings" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="alert-info-box">
+          <span class="alert-icon">✨</span>
+          <p>
+            <strong>AINA comes with an instant, built-in Pakistani Civic Intelligence Engine</strong> that works out of the box with zero setup. You can optionally enter a <strong>Google Gemini API Key</strong> to enable real-time dynamic LLM analysis.
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label for="input-gemini-key">Google Gemini API Key (Optional)</label>
+          <input type="password" id="input-gemini-key" class="form-input" placeholder="AIzaSy..." />
+          <span class="input-hint">Your API key remains strictly stored in your local browser storage (localStorage) and is never sent to any third-party server.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="select-gemini-model">Gemini Model</label>
+          <select id="select-gemini-model" class="form-select">
+            <option value="gemini-1.5-flash">Gemini 1.5 Flash (Ultra-fast & recommended)</option>
+            <option value="gemini-2.0-flash">Gemini 2.0 Flash (Next-gen)</option>
+            <option value="gemini-1.5-pro">Gemini 1.5 Pro (Deep complex legal analysis)</option>
+          </select>
+        </div>
+
+        <div class="modal-status-box" id="key-status-box">
+          <span id="key-status-indicator">● Built-in Civic Matrix Active (No API Key required)</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-clear" id="btn-clear-key">Remove Key</button>
+        <button class="btn-primary" id="btn-save-settings">Save & Apply</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: ABOUT PROJECT AINA (NYLP 2026)      -->
+  <!-- ========================================== -->
+  <div class="modal-backdrop" id="modal-about" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="about-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-icon">🇵🇰</span>
+          <h3 class="modal-title" id="about-modal-title">About Project AINA – NYLP AI Hackathon 2026</h3>
+        </div>
+        <button class="modal-close" id="btn-close-about" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body about-body">
+        <div class="vision-banner">
+          <h4>🎯 Our Vision:</h4>
+          <p><strong>Understand the issue, guide the citizen, and simplify actionable steps!</strong></p>
+        </div>
+
+        <div class="about-section-block">
+          <h4>What is AINA?</h4>
+          <p>
+            <strong>AINA (AI National Assistant)</strong> is an AI-powered civic platform designed to help Pakistani citizens navigate everyday public, administrative, and legal challenges. By understanding inquiries in simple Urdu, English, or Roman Urdu, AINA categorizes issues, identifies competent authorities, provides realistic resolution roadmaps, and formats official complaint drafts.
+          </p>
+        </div>
+
+        <div class="about-section-block">
+          <h4>💡 Our Focus in the Hackathon</h4>
+          <p>
+            We built a robust Minimum Viable Product (MVP) featuring core capabilities:
+          </p>
+          <ul>
+            <li><strong>Intelligent Issue Understanding & Categorization:</strong> Covers Utilities, NADRA, Police, Cybercrime, WASA, Municipal, and Consumer Protection.</li>
+            <li><strong>Bilingual Multimodal Accessibility:</strong> Voice input (Urdu & English), speech narration, and full Nastaliq typography support.</li>
+            <li><strong>Actionable 4-Phase Resolution Roadmap:</strong> Step-by-step guidance including evidence preservation, first-line submission, and quasi-judicial escalation.</li>
+            <li><strong>Official Smart Complaint Drafter:</strong> Ready-to-file legal petitions in English and Urdu with live editing and PDF/Print export.</li>
+            <li><strong>Civic Directory:</strong> Verified emergency helplines and direct links to official government complaint cells.</li>
+          </ul>
+        </div>
+
+        <div class="disclaimer-callout">
+          <strong>📌 Important Hackathon Disclaimer:</strong> AINA is an independent civic tech innovation platform, not an official government entity. It equips citizens with knowledge and structured drafts, while the user remains responsible for filing and submission.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-primary" id="btn-dismiss-about">Close</button>
+      </div>
+    </div>
+  <!-- ========================================== -->
+  <!-- MODAL: CASE SAVED CONFIRMATION             -->
+  <!-- ========================================== -->
+  <div class="modal-backdrop" id="modal-case-saved" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="saved-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-icon text-emerald">✅</span>
+          <h3 class="modal-title" id="saved-modal-title">Petition Saved to National Database</h3>
+        </div>
+        <button class="modal-close" id="btn-close-saved-modal" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="saved-modal-desc">
+          Your formal petition has been securely recorded into the AINA Civic Database. Use this unique tracking code to follow up with authorities or view your case timeline:
+        </p>
+        <div class="tracking-display-box">
+          <span class="tracking-id-text" id="saved-modal-tracking-id">AINA-PK-2026-XXXX</span>
+          <button class="btn-copy-pill" id="btn-copy-saved-id">📋 Copy Code</button>
+        </div>
+        <p class="saved-modal-hint">
+          💡 <strong>Official Protocol:</strong> When submitting this petition in person to the SDO, SHO, or Department Reader, request your <em>Official Receiving Diary Number</em> and record it here for legal evidence.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-clear" id="btn-dismiss-saved-modal">Close</button>
+        <button class="btn-primary" id="btn-view-saved-timeline">View Case Timeline →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: UPDATE DIARY NUMBER & STATUS        -->
+  <!-- ========================================== -->
+  <div class="modal-backdrop" id="modal-case-update" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="update-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-icon">📝</span>
+          <h3 class="modal-title" id="update-modal-title">Update Official Diary & Status</h3>
+        </div>
+        <button class="modal-close" id="btn-close-update-modal" aria-label="Close modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-case-update" onsubmit="return false;">
+          <div class="form-group">
+            <label for="input-update-diary">Official Receiving Diary / Roznamcha Number</label>
+            <input type="text" id="input-update-diary" class="form-input" placeholder="e.g. LESCO-MT-2026-412 or Roznamcha # 14" />
+            <span class="input-hint">The stamp / serial number written on your receiving copy by the office reader.</span>
+          </div>
+          <div class="form-group">
+            <label for="select-update-status">Case Status</label>
+            <select id="select-update-status" class="form-select">
+              <option value="draft">Draft (Preparing)</option>
+              <option value="filed">Filed (Submitted to Office)</option>
+              <option value="diary_assigned">Diary Number Assigned</option>
+              <option value="under_investigation">Under Inquiry / Verification</option>
+              <option value="hearing_scheduled">Hearing Scheduled</option>
+              <option value="resolved">Resolved / Relief Granted</option>
+              <option value="escalated">Escalated to Ombudsman / Court</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="input-update-officer">Action Officer / In-Charge</label>
+            <input type="text" id="input-update-officer" class="form-input" placeholder="e.g. SDO Reader / Moharrar / Incharge" />
+          </div>
+          <div class="form-group">
+            <label for="input-update-note">Milestone Note / Departmental Remarks</label>
+            <textarea id="input-update-note" class="form-input" rows="3" placeholder="e.g. Met SDO; directed meter inspection wing to verify physical meter reading within 3 days."></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-clear" id="btn-cancel-update-modal">Cancel</button>
+        <button class="btn-primary" id="btn-submit-case-update">Save Update</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Main JavaScript App -->
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+AINA UPDATED PROJECT
+
+Kiya improve kiya gaya:
+- Navbar ko responsive aur zyada stable banaya; mobile/tablet par horizontal scroll better hai.
+- Header/navigation layering aur sticky positioning adjust ki.
+- Buttons, forms aur navigation ke keyboard focus ko visible kiya.
+- Reduced-motion accessibility support add ki.
+- Alt + 1 se Alt + 5 tak main tabs switch karne ke shortcuts add kiye.
+- Tab selection accessibility attributes add kiye.
+- Existing features preserved: AI civic consultation, complaint drafter, Urdu/English, official directory, citizen rights, case tracking, theme, speech and settings.
+
+RUN KARNE KA TAREEQA (Windows):
+1. ZIP extract karo.
+2. ANA folder VS Code mein open karo.
+3. Terminal mein: npm install
+4. Phir: npm run dev
+5. Browser mein terminal ka Vite URL kholo (usually http://localhost:5173).
+
+Note: Project ka source JavaScript syntax check pass hua. Is environment mein provided node_modules ka Vite/Rolldown native binding missing tha, is liye production build yahan verify nahi ho saka. Apne computer par npm install ke baad npm run build chala sakte ho.

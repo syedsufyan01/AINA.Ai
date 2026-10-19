@@ -1,0 +1,36 @@
+{
+  "name": "project-aina",
+  "version": "1.0.0",
+  "description": "AINA - AI National Assistant for Pakistani Civic Problem Resolution (NYLP AI Hackathon 2026)",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"cyan,magenta\" \"npm run server\" \"npm run client\"",
+    "client": "vite",
+    "server": "node backend/server.js",
+    "start": "node backend/server.js",
+    "seed": "node backend/db/seed.js",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "pakistan",
+    "civic-tech",
+    "ai-assistant",
+    "complaint-drafting",
+    "nylp-hackathon"
+  ],
+  "author": "AINA Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^10.0.6",
+    "vite": "^8.3.4"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.8",
+    "express": "^5.3.0",
+    "helmet": "^8.3.0",
+    "morgan": "^1.12.1",
+    "zod": "^4.6.7"
+  }
+}
